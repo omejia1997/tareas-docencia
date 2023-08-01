@@ -9,12 +9,12 @@ public class TareaDocenciaMapper {
         return TareaDocenciaDTO.builder()
                 .id(tareaDocencia.getId())
                 .idEspeDocenteRevisor(tareaDocencia.getIdEspeDocenteRevisor())
+                .codigoPeriodo(tareaDocencia.getCodigoPeriodo())
                 .nombreDocenteRevisor(tareaDocencia.getNombreDocenteRevisor())
                 .nombreTarea(tareaDocencia.getNombreTarea())
                 .fechaCreaciontarea(tareaDocencia.getFechaCreaciontarea())
                 .observacionTarea(tareaDocencia.getObservacionTarea())
                 .estadoTarea(tareaDocencia.getEstadoTarea())
-                .periodo(tareaDocencia.getPeriodo())
                 .build();
     }
 
@@ -23,23 +23,23 @@ public class TareaDocenciaMapper {
             tareaDocenciaDTO.setEstadoTarea(EstadoTareaEnum.ACTIVE.getValue().charAt(0));
             return TareaDocencia.builder()
                     .idEspeDocenteRevisor(tareaDocenciaDTO.getIdEspeDocenteRevisor())
+                    .codigoPeriodo(tareaDocenciaDTO.getCodigoPeriodo())
                     .nombreDocenteRevisor(tareaDocenciaDTO.getNombreDocenteRevisor())
                     .nombreTarea(tareaDocenciaDTO.getNombreTarea())
                     .fechaCreaciontarea(tareaDocenciaDTO.getFechaCreaciontarea())
                     .observacionTarea(tareaDocenciaDTO.getObservacionTarea())
                     .estadoTarea(tareaDocenciaDTO.getEstadoTarea())
-                    .periodo(tareaDocenciaDTO.getPeriodo())
                     .build();
         }
         return TareaDocencia.builder()
                 .id(tareaDocenciaDTO.getId())
                 .idEspeDocenteRevisor(tareaDocenciaDTO.getIdEspeDocenteRevisor())
+                .codigoPeriodo(tareaDocenciaDTO.getCodigoPeriodo())
                 .nombreDocenteRevisor(tareaDocenciaDTO.getNombreDocenteRevisor())
                 .nombreTarea(tareaDocenciaDTO.getNombreTarea())
                 .fechaCreaciontarea(tareaDocenciaDTO.getFechaCreaciontarea())
                 .observacionTarea(tareaDocenciaDTO.getObservacionTarea())
                 .estadoTarea(tareaDocenciaDTO.getEstadoTarea())
-                .periodo(tareaDocenciaDTO.getPeriodo())
                 .build();
     }
 }

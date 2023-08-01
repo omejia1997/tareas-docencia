@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface TareaDocenteDocenciaDao extends MongoRepository<TareaDocenteDocencia, String> {
    List<TareaDocenteDocencia> findByDocenteAsignadoCodigoDocente(Integer codigoDocente);
+   List<TareaDocenteDocencia> findByDocenteAsignadoIdDocente(String idDocente);
+
 }

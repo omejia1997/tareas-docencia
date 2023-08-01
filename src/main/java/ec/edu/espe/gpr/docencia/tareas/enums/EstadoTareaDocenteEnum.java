@@ -2,6 +2,7 @@ package ec.edu.espe.gpr.docencia.tareas.enums;
 
 public enum EstadoTareaDocenteEnum {
     ASIGNADA("ASIGNADA", "ASIGNADA"),
+    GUARDAR_BORRADOR("GUARDAR_BORRADOR", "Guardar como borrador"),
     EN_REVISION("EN REVISIÓN", "EN REVISIÓN"),
     DENEGADO("DENEGADO", "DENEGADO"),
     ACEPTADO("ACEPTADO", "ACEPTADO");

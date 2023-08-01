@@ -15,6 +15,8 @@ public class TareaDocenciaDTO {
 
     private String idEspeDocenteRevisor;
 
+    private Integer codigoPeriodo;
+
     private String nombreDocenteRevisor;
 
     private String nombreTarea;
@@ -26,8 +28,6 @@ public class TareaDocenciaDTO {
     private List<String> observacionTarea;
 
     private Character estadoTarea;
-
-    private String periodo;
 
     private List<Docente> docentesAsignados;
 }

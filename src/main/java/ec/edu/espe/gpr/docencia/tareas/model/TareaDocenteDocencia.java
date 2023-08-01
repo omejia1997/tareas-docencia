@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import ec.edu.espe.gpr.docencia.tareas.model.informefinal.InformeFinal;
 import ec.edu.espe.gpr.docencia.tareas.model.microservicegpr.Docente;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
@@ -27,14 +28,16 @@ public class TareaDocenteDocencia {
     @Id
     private String id;
 
-    @Indexed(name = "idx_docente_idEspe")
+    @Indexed(name = "idx_tareaDocenteDocencia_idTareaDocencia")
     private String idTareaDocencia;
 
     private Docente docenteAsignado;
 
     private String estadoTareaDocente;
 
-    //private LocalDate fechaEntregaTarea;
+    private InformeFinal informeFinal;
 
-    private IndicadorDocencia indicador;
+    private Date fechaEntrega;
+
+    private Date fechaModificacion;
 }

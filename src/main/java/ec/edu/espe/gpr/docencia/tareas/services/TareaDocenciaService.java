@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -46,6 +48,23 @@ public class TareaDocenciaService {
         return this.tareaDocenciaDao.findByIdEspeDocenteRevisor(idEspeDocente);
     }
 
+    public List<TareaDocenteDocenciaDTO> listarTodasTareasAsignadasPorDocente(String idEspeDocente){
+        List<TareaDocenteDocencia> tareaDocenteDocencia = this.tareaDocenteDocenciaDao.findByDocenteAsignadoIdDocente(idEspeDocente);
+        List<TareaDocenteDocenciaDTO> tareaDocenteDocenciaDTOS = new ArrayList<>();
+        for (TareaDocenteDocencia tarea:tareaDocenteDocencia) {
+            TareaDocenteDocenciaDTO tareaDocenteDocenciaDTO = new TareaDocenteDocenciaDTO();
+            TareaDocencia tareaDocencia = this.tareaDocenciaDao.findById(tarea.getIdTareaDocencia()).get();
+            tareaDocenteDocenciaDTO.setTareaDocencia(tareaDocencia);
+            tareaDocenteDocenciaDTO.setDocenteAsignado(tarea.getDocenteAsignado());
+            tareaDocenteDocenciaDTO.setEstadoTareaDocente(tarea.getEstadoTareaDocente());
+            tareaDocenteDocenciaDTO.setInformeFinal(tarea.getInformeFinal());
+            tareaDocenteDocenciaDTO.setFechaEntrega(tarea.getFechaEntrega());
+            tareaDocenteDocenciaDTO.setFechaModificacion(tarea.getFechaModificacion());
+            tareaDocenteDocenciaDTOS.add(tareaDocenteDocenciaDTO);
+        }
+        return tareaDocenteDocenciaDTOS;
+    }
+
     /*public List<TareaDocenteDocenciaDTO> listarTareaAsignadaPorDocente(Integer codigoDocente){
         List<TareaDocenteDocencia> tareaDocenteDocenciaList = this.tareaDocenteDocenciaDao.findByDocenteAsignadoCodigoDocente(codigoDocente);
 
@@ -67,5 +86,17 @@ public class TareaDocenciaService {
 
     public TareaDocencia actualizarTarea(TareaDocencia tareaDocencia){
         return this.tareaDocenciaDao.save(tareaDocencia);
+    }
+
+    public TareaDocenteDocencia guardarTareaParaRevisar(TareaDocenteDocencia tareaDocenteDocencia){
+        tareaDocenteDocencia.setFechaModificacion(new Date());
+        tareaDocenteDocencia.setEstadoTareaDocente(EstadoTareaDocenteEnum.EN_REVISION.getValue());
+        return this.tareaDocenteDocenciaDao.save(tareaDocenteDocencia);
+    }
+
+    public TareaDocenteDocencia guardarTareaComoBorrador(TareaDocenteDocencia tareaDocenteDocencia){
+        tareaDocenteDocencia.setFechaModificacion(new Date());
+        tareaDocenteDocencia.setEstadoTareaDocente(EstadoTareaDocenteEnum.GUARDAR_BORRADOR.getValue());
+        return this.tareaDocenteDocenciaDao.save(tareaDocenteDocencia);
     }
 }

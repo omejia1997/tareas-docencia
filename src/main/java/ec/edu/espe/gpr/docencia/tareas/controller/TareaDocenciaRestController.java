@@ -3,6 +3,7 @@ package ec.edu.espe.gpr.docencia.tareas.controller;
 import ec.edu.espe.gpr.docencia.tareas.dto.TareaDocenteDocenciaDTO;
 import ec.edu.espe.gpr.docencia.tareas.model.TareaDocencia;
 import ec.edu.espe.gpr.docencia.tareas.dto.TareaDocenciaDTO;
+import ec.edu.espe.gpr.docencia.tareas.model.TareaDocenteDocencia;
 import ec.edu.espe.gpr.docencia.tareas.services.TareaDocenciaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,16 @@ public class TareaDocenciaRestController {
     public ResponseEntity<List<TareaDocencia>> listarTodasTareasPorDocente(@PathVariable String idEspeDocente) {
         try {
             List<TareaDocencia> tareasDocencia = this.tareaDocenciaService.listarTodasTareasPorDocente(idEspeDocente);
+            return ResponseEntity.ok(tareasDocencia);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping(path = "/listarTodasTareasAsignadasPorDocente/{idEspeDocente}")
+    public ResponseEntity<List<TareaDocenteDocenciaDTO>> listarTodasTareasAsignadasPorDocente(@PathVariable String idEspeDocente) {
+        try {
+            List<TareaDocenteDocenciaDTO> tareasDocencia = this.tareaDocenciaService.listarTodasTareasAsignadasPorDocente(idEspeDocente);
             return ResponseEntity.ok(tareasDocencia);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -55,6 +66,28 @@ public class TareaDocenciaRestController {
     public ResponseEntity<TareaDocencia> modificar(@RequestBody TareaDocencia tareaDocencia) {
         try {
             TareaDocencia tarea = this.tareaDocenciaService.actualizarTarea(tareaDocencia);
+            return ResponseEntity.ok(tarea);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/guardarTareaParaRevisar")
+    public ResponseEntity<TareaDocenteDocencia> guardarTareaParaRevisar(@RequestBody TareaDocenteDocencia tareaDocenteDocencia) {
+        try {
+            TareaDocenteDocencia tarea = this.tareaDocenciaService.guardarTareaParaRevisar(tareaDocenteDocencia);
+            return ResponseEntity.ok(tarea);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/guardarTareaComoBorrador")
+    public ResponseEntity<TareaDocenteDocencia> guardarTareaComoBorrador(@RequestBody TareaDocenteDocencia tareaDocenteDocencia) {
+        try {
+            TareaDocenteDocencia tarea = this.tareaDocenciaService.guardarTareaComoBorrador(tareaDocenteDocencia);
             return ResponseEntity.ok(tarea);
         } catch (Exception e) {
             e.printStackTrace();

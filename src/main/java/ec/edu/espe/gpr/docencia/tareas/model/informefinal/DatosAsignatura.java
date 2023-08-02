@@ -23,6 +23,8 @@ public class DatosAsignatura {
 
     private PromedioRendimientoAcademico promedioRendimientoAcademico;
 
+    private DesviacionEstandar desviacionEstandar;
+
     private Double promedioFinalRendimientoAcademico;
 
     private Double promedioFinalDesviacionEstandar;

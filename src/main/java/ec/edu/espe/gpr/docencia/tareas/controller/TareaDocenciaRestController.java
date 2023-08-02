@@ -4,6 +4,7 @@ import ec.edu.espe.gpr.docencia.tareas.dto.TareaDocenteDocenciaDTO;
 import ec.edu.espe.gpr.docencia.tareas.model.TareaDocencia;
 import ec.edu.espe.gpr.docencia.tareas.dto.TareaDocenciaDTO;
 import ec.edu.espe.gpr.docencia.tareas.model.TareaDocenteDocencia;
+import ec.edu.espe.gpr.docencia.tareas.model.informefinal.InformeFinal;
 import ec.edu.espe.gpr.docencia.tareas.services.TareaDocenciaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,10 +85,10 @@ public class TareaDocenciaRestController {
         }
     }
 
-    @PutMapping("/guardarTareaComoBorrador")
-    public ResponseEntity<TareaDocenteDocencia> guardarTareaComoBorrador(@RequestBody TareaDocenteDocencia tareaDocenteDocencia) {
+    @PutMapping("/guardarTareaComoBorrador/{idTareaDocente}")
+    public ResponseEntity<TareaDocenteDocencia> guardarTareaComoBorrador(@PathVariable String idTareaDocente,@RequestBody InformeFinal tareaDocenteDocencia) {
         try {
-            TareaDocenteDocencia tarea = this.tareaDocenciaService.guardarTareaComoBorrador(tareaDocenteDocencia);
+            TareaDocenteDocencia tarea = this.tareaDocenciaService.guardarTareaComoBorrador(idTareaDocente, tareaDocenteDocencia);
             return ResponseEntity.ok(tarea);
         } catch (Exception e) {
             e.printStackTrace();

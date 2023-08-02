@@ -9,6 +9,7 @@ import ec.edu.espe.gpr.docencia.tareas.mapper.TareaDocenciaMapper;
 import ec.edu.espe.gpr.docencia.tareas.model.TareaDocencia;
 import ec.edu.espe.gpr.docencia.tareas.dto.TareaDocenciaDTO;
 import ec.edu.espe.gpr.docencia.tareas.model.TareaDocenteDocencia;
+import ec.edu.espe.gpr.docencia.tareas.model.informefinal.InformeFinal;
 import ec.edu.espe.gpr.docencia.tareas.model.microservicegpr.Docente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,7 @@ public class TareaDocenciaService {
         for (TareaDocenteDocencia tarea:tareaDocenteDocencia) {
             TareaDocenteDocenciaDTO tareaDocenteDocenciaDTO = new TareaDocenteDocenciaDTO();
             TareaDocencia tareaDocencia = this.tareaDocenciaDao.findById(tarea.getIdTareaDocencia()).get();
+            tareaDocenteDocenciaDTO.setId(tarea.getId());
             tareaDocenteDocenciaDTO.setTareaDocencia(tareaDocencia);
             tareaDocenteDocenciaDTO.setDocenteAsignado(tarea.getDocenteAsignado());
             tareaDocenteDocenciaDTO.setEstadoTareaDocente(tarea.getEstadoTareaDocente());
@@ -80,6 +82,7 @@ public class TareaDocenciaService {
             tareDocenteDocencia.setIdTareaDocencia(tareaDocencia.getId());
             tareDocenteDocencia.setDocenteAsignado(docente);
             tareDocenteDocencia.setEstadoTareaDocente(EstadoTareaDocenteEnum.ASIGNADA.getValue());
+            tareDocenteDocencia.setFechaModificacion(new Date());
             this.tareaDocenteDocenciaDao.save(tareDocenteDocencia);
         }
     }
@@ -94,9 +97,11 @@ public class TareaDocenciaService {
         return this.tareaDocenteDocenciaDao.save(tareaDocenteDocencia);
     }
 
-    public TareaDocenteDocencia guardarTareaComoBorrador(TareaDocenteDocencia tareaDocenteDocencia){
+    public TareaDocenteDocencia guardarTareaComoBorrador(String idTareaDocente, InformeFinal informeFinal){
+        TareaDocenteDocencia tareaDocenteDocencia = this.tareaDocenteDocenciaDao.findById(idTareaDocente).get();
         tareaDocenteDocencia.setFechaModificacion(new Date());
         tareaDocenteDocencia.setEstadoTareaDocente(EstadoTareaDocenteEnum.GUARDAR_BORRADOR.getValue());
+        tareaDocenteDocencia.setInformeFinal(informeFinal);
         return this.tareaDocenteDocenciaDao.save(tareaDocenteDocencia);
     }
 }

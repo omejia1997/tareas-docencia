@@ -27,6 +27,7 @@ public class TareaDocenciaMapper {
                     .nombreDocenteRevisor(tareaDocenciaDTO.getNombreDocenteRevisor())
                     .nombreTarea(tareaDocenciaDTO.getNombreTarea())
                     .fechaCreaciontarea(tareaDocenciaDTO.getFechaCreaciontarea())
+                    .fechaModificaciontarea(tareaDocenciaDTO.getFechaModificaciontarea())
                     .observacionTarea(tareaDocenciaDTO.getObservacionTarea())
                     .estadoTarea(tareaDocenciaDTO.getEstadoTarea())
                     .build();

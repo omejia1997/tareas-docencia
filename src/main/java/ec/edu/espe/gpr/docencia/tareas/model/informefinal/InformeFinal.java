@@ -15,7 +15,7 @@ public class InformeFinal {
     private DatosGenerales datosGenerales;
     private ArrayList<String> antecedentes;
     private String objetivo;
-    private String datosAsignatura;
+    private ArrayList<DatosAsignatura> datosAsignatura;
     private EvaluacionDocente evaluacionDocente;
     private ArrayList<String> fortalezas;
     private ArrayList<String> debilidades;

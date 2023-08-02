@@ -25,5 +25,6 @@ public class InformeFinal {
     private ArrayList<TematicaCapacitacion> tematicaCapacitaciones;
     private ArrayList<String> conclusiones;
     private ArrayList<String> recomendaciones;
-
+    private ArrayList<String> anexo1;
+    private ArrayList<Anexo2> anexo2;
 }

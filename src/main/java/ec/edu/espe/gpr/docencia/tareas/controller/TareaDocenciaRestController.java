@@ -22,10 +22,10 @@ public class TareaDocenciaRestController {
     @Autowired
     private TareaDocenciaService tareaDocenciaService;
 
-    @GetMapping(path = "/listarTodasTareasPorDocente/{idEspeDocente}")
-    public ResponseEntity<List<TareaDocencia>> listarTodasTareasPorDocente(@PathVariable String idEspeDocente) {
+    @GetMapping(path = "/listarTodasTareasPorPeriodo/{codigoPeriodo}")
+    public ResponseEntity<List<TareaDocenciaDTO>> listarTodasTareasPorDocente(@PathVariable Integer codigoPeriodo) {
         try {
-            List<TareaDocencia> tareasDocencia = this.tareaDocenciaService.listarTodasTareasPorDocente(idEspeDocente);
+            List<TareaDocenciaDTO> tareasDocencia = this.tareaDocenciaService.listarTodasTareasPorPeriodo(codigoPeriodo);
             return ResponseEntity.ok(tareasDocencia);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -42,19 +42,20 @@ public class TareaDocenciaRestController {
         }
     }
 
-    @GetMapping(path = "/listarTodasTareasSubidasModuloDocencia")
-    public ResponseEntity<List<TareaDocenteDocenciaDTO>> listarTodasTareasSubidasModuloDocencia() {
+    @GetMapping(path = "/listarTodasTareasSubidasPorPeriodo/{codigoPeriodo}")
+    public ResponseEntity<List<TareaDocenteDocenciaDTO>> listarTodasTareasSubidasPorPeriodo(@PathVariable Integer codigoPeriodo) {
         try {
-            List<TareaDocenteDocenciaDTO> tareasDocencia = this.tareaDocenciaService.listarTodasTareasSubidasModuloDocencia();
+            List<TareaDocenteDocenciaDTO> tareasDocencia = this.tareaDocenciaService.listarTodasTareasSubidasPorPeriodo(codigoPeriodo);
             return ResponseEntity.ok(tareasDocencia);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
-    /*@GetMapping(path = "/listarTareaAsignadaPorDocente/{idEspeDocente}")
-    public ResponseEntity<List<TareaDocenteDocenciaDTO>> listarTareaAsignadaPorDocente(@PathVariable String idEspeDocente) {
+
+    /*@GetMapping(path = "/listarTodasTareasSubidasModuloDocencia")
+    public ResponseEntity<List<TareaDocenteDocenciaDTO>> listarTodasTareasSubidasModuloDocencia() {
         try {
-            List<TareaDocencia> tareasDocencia = this.tareaDocenciaService.listarTareaAsignadaPorDocente(idEspeDocente);
+            List<TareaDocenteDocenciaDTO> tareasDocencia = this.tareaDocenciaService.listarTodasTareasSubidasModuloDocencia();
             return ResponseEntity.ok(tareasDocencia);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -73,9 +74,9 @@ public class TareaDocenciaRestController {
     }
 
     @PutMapping("/modificarTarea")
-    public ResponseEntity<TareaDocencia> modificar(@RequestBody TareaDocencia tareaDocencia) {
+    public ResponseEntity<TareaDocencia> modificar(@RequestBody TareaDocenciaDTO tareaDocenciaDTO) {
         try {
-            TareaDocencia tarea = this.tareaDocenciaService.actualizarTarea(tareaDocencia);
+            TareaDocencia tarea = this.tareaDocenciaService.actualizarTarea(tareaDocenciaDTO);
             return ResponseEntity.ok(tarea);
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,6 +105,28 @@ public class TareaDocenciaRestController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PutMapping("/guardarTareaParaSubir/{idTareaDocente}")
+    public ResponseEntity<TareaDocenteDocencia> guardarTareaParaSubir(@PathVariable String idTareaDocente,@RequestBody InformeFinal tareaDocenteDocencia) {
+        try {
+            TareaDocenteDocencia tarea = this.tareaDocenciaService.guardarTareaParaSubir(idTareaDocente, tareaDocenteDocencia);
+            return ResponseEntity.ok(tarea);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/habilitarTareaParaEditar")
+    public ResponseEntity<String> habilitarTareaParaEditar(@RequestBody String idTareaDocente) {
+        try {
+            this.tareaDocenciaService.habilitarTareaParaEditar(idTareaDocente);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     /*
     @GetMapping(path = "/listarTareasDocentePorCodigoTarea/{id}")
     public ResponseEntity<List<TareaDocenteVinculacion>> listarTareasDocentePorCodigoTarea(@PathVariable String id) {

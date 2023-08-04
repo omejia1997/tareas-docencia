@@ -4,7 +4,7 @@ public enum EstadoTareaDocenteEnum {
     ASIGNADA("ASIGNADA", "ASIGNADA"),
     GUARDAR_BORRADOR("GUARDAR_BORRADOR", "Guardar como borrador"),
     EN_REVISION("EN REVISIÓN", "EN REVISIÓN"),
-    SUBIDA_NO_CAMBIOS("SUBIDA_NO_CAMBIOS", "Actividad Subida y no se aceptan cambios"),
+    SUBIDA_NO_ACEPTA_CAMBIOS("SUBIDA_NO_ACEPTA_CAMBIOS", "Actividad Subida y no se aceptan cambios"),
     DENEGADO("DENEGADO", "DENEGADO"),
     ACEPTADO("ACEPTADO", "ACEPTADO");
 

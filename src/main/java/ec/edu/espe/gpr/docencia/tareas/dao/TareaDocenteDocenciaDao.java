@@ -9,4 +9,6 @@ public interface TareaDocenteDocenciaDao extends MongoRepository<TareaDocenteDoc
    List<TareaDocenteDocencia> findByDocenteAsignadoCodigoDocente(Integer codigoDocente);
    List<TareaDocenteDocencia> findByDocenteAsignadoIdDocente(String idDocente);
 
+   List<TareaDocenteDocencia> findByEstadoTareaDocente(String estadoTareaDocente);
+
 }

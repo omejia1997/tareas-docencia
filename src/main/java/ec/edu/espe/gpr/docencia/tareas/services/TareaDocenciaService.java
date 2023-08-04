@@ -45,14 +45,14 @@ public class TareaDocenciaService {
             return null;
     }*/
 
-    public List<TareaDocencia> listarTodasTareasPorDocente(String idEspeDocente){
+    public List<TareaDocencia> listarTodasTareasPorDocente(String idEspeDocente) {
         return this.tareaDocenciaDao.findByIdEspeDocenteRevisor(idEspeDocente);
     }
 
-    public List<TareaDocenteDocenciaDTO> listarTodasTareasAsignadasPorDocente(String idEspeDocente){
+    public List<TareaDocenteDocenciaDTO> listarTodasTareasAsignadasPorDocente(String idEspeDocente) {
         List<TareaDocenteDocencia> tareaDocenteDocencia = this.tareaDocenteDocenciaDao.findByDocenteAsignadoIdDocente(idEspeDocente);
         List<TareaDocenteDocenciaDTO> tareaDocenteDocenciaDTOS = new ArrayList<>();
-        for (TareaDocenteDocencia tarea:tareaDocenteDocencia) {
+        for (TareaDocenteDocencia tarea : tareaDocenteDocencia) {
             TareaDocenteDocenciaDTO tareaDocenteDocenciaDTO = new TareaDocenteDocenciaDTO();
             TareaDocencia tareaDocencia = this.tareaDocenciaDao.findById(tarea.getIdTareaDocencia()).get();
             tareaDocenteDocenciaDTO.setId(tarea.getId());
@@ -67,10 +67,23 @@ public class TareaDocenciaService {
         return tareaDocenteDocenciaDTOS;
     }
 
-    /*public List<TareaDocenteDocenciaDTO> listarTareaAsignadaPorDocente(Integer codigoDocente){
-        List<TareaDocenteDocencia> tareaDocenteDocenciaList = this.tareaDocenteDocenciaDao.findByDocenteAsignadoCodigoDocente(codigoDocente);
-
-    }*/
+    public List<TareaDocenteDocenciaDTO> listarTodasTareasSubidasModuloDocencia() {
+        List<TareaDocenteDocencia> tareaDocenteDocencia = this.tareaDocenteDocenciaDao.findByEstadoTareaDocente(EstadoTareaDocenteEnum.SUBIDA_NO_CAMBIOS.getValue());
+        List<TareaDocenteDocenciaDTO> tareaDocenteDocenciaDTOS = new ArrayList<>();
+        for (TareaDocenteDocencia tarea : tareaDocenteDocencia) {
+            TareaDocenteDocenciaDTO tareaDocenteDocenciaDTO = new TareaDocenteDocenciaDTO();
+            TareaDocencia tareaDocencia = this.tareaDocenciaDao.findById(tarea.getIdTareaDocencia()).get();
+            tareaDocenteDocenciaDTO.setId(tarea.getId());
+            tareaDocenteDocenciaDTO.setTareaDocencia(tareaDocencia);
+            tareaDocenteDocenciaDTO.setDocenteAsignado(tarea.getDocenteAsignado());
+            tareaDocenteDocenciaDTO.setEstadoTareaDocente(tarea.getEstadoTareaDocente());
+            tareaDocenteDocenciaDTO.setInformeFinal(tarea.getInformeFinal());
+            tareaDocenteDocenciaDTO.setFechaEntrega(tarea.getFechaEntrega());
+            tareaDocenteDocenciaDTO.setFechaModificacion(tarea.getFechaModificacion());
+            tareaDocenteDocenciaDTOS.add(tareaDocenteDocenciaDTO);
+        }
+        return tareaDocenteDocenciaDTOS;
+    }
 
     public void crearTarea(TareaDocenciaDTO tareaDocenciaRequest){
         tareaDocenciaRequest.setFechaCreaciontarea(LocalDate.now());
@@ -93,7 +106,7 @@ public class TareaDocenciaService {
 
     public TareaDocenteDocencia guardarTareaParaRevisar(TareaDocenteDocencia tareaDocenteDocencia){
         tareaDocenteDocencia.setFechaModificacion(new Date());
-        tareaDocenteDocencia.setEstadoTareaDocente(EstadoTareaDocenteEnum.EN_REVISION.getValue());
+        tareaDocenteDocencia.setEstadoTareaDocente(EstadoTareaDocenteEnum.SUBIDA_NO_CAMBIOS.getValue());
         return this.tareaDocenteDocenciaDao.save(tareaDocenteDocencia);
     }
 
@@ -104,4 +117,5 @@ public class TareaDocenciaService {
         tareaDocenteDocencia.setInformeFinal(informeFinal);
         return this.tareaDocenteDocenciaDao.save(tareaDocenteDocencia);
     }
+
 }

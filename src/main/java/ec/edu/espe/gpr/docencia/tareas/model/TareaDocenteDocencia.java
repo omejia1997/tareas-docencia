@@ -33,6 +33,7 @@ public class TareaDocenteDocencia {
 
     private Docente docenteAsignado;
 
+    @Indexed(name = "idx_tareaDocenteDocencia_estadoTareaDocente")
     private String estadoTareaDocente;
 
     private InformeFinal informeFinal;

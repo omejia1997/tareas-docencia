@@ -63,7 +63,25 @@ public class TareaDocenciaService {
 
 
     public List<TareaDocenteDocenciaDTO> listarTodasTareasAsignadasPorDocente(String idEspeDocente) {
-        List<TareaDocenteDocencia> tareaDocenteDocencia = this.tareaDocenteDocenciaDao.findByDocenteAsignadoIdDocente(idEspeDocente);
+        List<TareaDocenteDocencia> tareaDocenteDocencia = this.tareaDocenteDocenciaDao.findByDocenteAsignadoIdDocenteAndEstadoTareaDocenteNot(idEspeDocente, EstadoTareaDocenteEnum.SUBIDA_NO_ACEPTA_CAMBIOS.getValue());
+        List<TareaDocenteDocenciaDTO> tareaDocenteDocenciaDTOS = new ArrayList<>();
+        for (TareaDocenteDocencia tarea : tareaDocenteDocencia) {
+            TareaDocenteDocenciaDTO tareaDocenteDocenciaDTO = new TareaDocenteDocenciaDTO();
+            TareaDocencia tareaDocencia = this.tareaDocenciaDao.findById(tarea.getIdTareaDocencia()).get();
+            tareaDocenteDocenciaDTO.setId(tarea.getId());
+            tareaDocenteDocenciaDTO.setTareaDocencia(tareaDocencia);
+            tareaDocenteDocenciaDTO.setDocenteAsignado(tarea.getDocenteAsignado());
+            tareaDocenteDocenciaDTO.setEstadoTareaDocente(tarea.getEstadoTareaDocente());
+            tareaDocenteDocenciaDTO.setInformeFinal(tarea.getInformeFinal());
+            tareaDocenteDocenciaDTO.setFechaEntrega(tarea.getFechaEntrega());
+            tareaDocenteDocenciaDTO.setFechaModificacion(tarea.getFechaModificacion());
+            tareaDocenteDocenciaDTOS.add(tareaDocenteDocenciaDTO);
+        }
+        return tareaDocenteDocenciaDTOS;
+    }
+
+    public List<TareaDocenteDocenciaDTO> listarTodasTareasNoAsignadasPorDocente(String idEspeDocente) {
+        List<TareaDocenteDocencia> tareaDocenteDocencia = this.tareaDocenteDocenciaDao.findByDocenteAsignadoIdDocenteAndEstadoTareaDocente(idEspeDocente, EstadoTareaDocenteEnum.SUBIDA_NO_ACEPTA_CAMBIOS.getValue());
         List<TareaDocenteDocenciaDTO> tareaDocenteDocenciaDTOS = new ArrayList<>();
         for (TareaDocenteDocencia tarea : tareaDocenteDocencia) {
             TareaDocenteDocenciaDTO tareaDocenteDocenciaDTO = new TareaDocenteDocenciaDTO();

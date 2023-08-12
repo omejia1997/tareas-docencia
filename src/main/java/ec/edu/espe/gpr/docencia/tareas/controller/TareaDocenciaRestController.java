@@ -42,6 +42,16 @@ public class TareaDocenciaRestController {
         }
     }
 
+    @GetMapping(path = "/listarTodasTareasNoAsignadasPorDocente/{idEspeDocente}")
+    public ResponseEntity<List<TareaDocenteDocenciaDTO>> listarTodasTareasNoAsignadasPorDocente(@PathVariable String idEspeDocente) {
+        try {
+            List<TareaDocenteDocenciaDTO> tareasDocencia = this.tareaDocenciaService.listarTodasTareasNoAsignadasPorDocente(idEspeDocente);
+            return ResponseEntity.ok(tareasDocencia);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @GetMapping(path = "/listarTodasTareasSubidasPorPeriodo/{codigoPeriodo}")
     public ResponseEntity<List<TareaDocenteDocenciaDTO>> listarTodasTareasSubidasPorPeriodo(@PathVariable Integer codigoPeriodo) {
         try {

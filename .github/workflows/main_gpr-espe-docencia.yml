@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'gpr-espe-docencia'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A45AE8421BB9475480C6ABAC7C6FD4F7 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_89010D0EE06E4AD093835723AE553A2A }}
           package: '*.jar'
